@@ -1,0 +1,141 @@
+.bookshelf {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.imageContainer {
+    position: relative;
+
+    overflow: hidden;
+
+    aspect-ratio: 2 / 3;
+    width: 100%;
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+
+    background-color: var(--surface);
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+.card:hover .image {
+    transform: scale(1.05);
+}
+
+.favoriteButton {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.5rem;
+    border-radius: var(--radius-pill);
+
+    color: var(--color-white);
+
+    background-color: rgb(0 0 0 / 90%);
+    backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-md);
+
+    transition: transform var(--transition);
+}
+
+.favoriteButton:hover {
+    transform: scale(1.1);
+}
+
+.genreContainer {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0.75rem;
+
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+}
+
+.card:hover .genreContainer {
+    opacity: 1;
+}
+
+.genre {
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--radius-sm);
+
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--color-white);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    background-color: rgb(0 0 0 / 80%);
+    backdrop-filter: blur(4px);
+    box-shadow: var(--shadow-sm);
+}
+
+.content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.title {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+
+    margin-bottom: 0.125rem;
+
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--text-primary);
+}
+
+.author {
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 300;
+    color: var(--text-muted);
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.readButton {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+
+    transition: color var(--transition);
+}
+
+.readButton:hover {
+    color: var(--text-primary);
+}
