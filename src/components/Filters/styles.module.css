@@ -1,0 +1,92 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.search_container {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+
+    background-color: var(--background);
+
+    transition: border-color var(--transition);
+}
+
+.search_container:focus-within {
+    border-color: var(--focus);
+}
+
+.search_icon {
+    flex-shrink: 0;
+
+    width: 18px;
+    height: 18px;
+    margin-right: 0.5rem;
+
+    color: var(--text-muted);
+}
+
+.search_input {
+    flex: 1;
+
+    border: none;
+
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--text-primary);
+
+    background-color: transparent;
+    outline: none;
+}
+
+.search_input::placeholder {
+    color: var(--text-muted);
+}
+
+.genres_container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.genre_button {
+    padding: 0.375rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+
+    background-color: var(--background);
+
+    transition: all var(--transition);
+}
+
+.genre_button:hover {
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+}
+
+.selected_genre {
+    border-color: var(--primary);
+    color: var(--text-inverse);
+    background-color: var(--primary);
+}
+
+.selected_genre:hover {
+    border-color: var(--primary-hover);
+    color: var(--text-inverse);
+    background-color: var(--primary-hover);
+}

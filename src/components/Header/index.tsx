@@ -3,14 +3,12 @@ import styles from "./styles.module.css";
 export default function Header() {
     return (
         <nav className={styles.nav}>
-            <div className={styles.content}>
-                <h1 className={styles.logo}>Bookshelf.</h1>
+            <h1 className={styles.logo}>Bookshelf.</h1>
 
-                <div className={styles.links}>
-                    <a className={`${styles.link} ${styles.link_selected}`}>Biblioteca</a>
-                    <a className={styles.link}>Quero Ler</a>
-                    <a className={styles.link}>Favoritos</a>
-                </div>
+            <div className={styles.links}>
+                <a className={`${styles.link} ${styles.link_selected}`}>Biblioteca</a>
+                <a className={styles.link}>Quero Ler</a>
+                <a className={styles.link}>Favoritos</a>
             </div>
         </nav>
     );
