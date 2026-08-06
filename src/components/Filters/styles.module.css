@@ -63,7 +63,7 @@
 .genre_button {
     padding: 0.375rem 1rem;
     border: 1px solid var(--border);
-    border-radius: 100px;
+    border-radius: var(--radius-pill);
 
     font-size: 0.75rem;
     font-weight: 500;
@@ -89,4 +89,26 @@
     border-color: var(--primary-hover);
     color: var(--text-inverse);
     background-color: var(--primary-hover);
+}
+
+@media (width <= 767px) {
+    .genres_container {
+        scrollbar-width: none;
+
+        overflow-x: auto;
+        flex-wrap: nowrap;
+
+        padding-bottom: 0.5rem;
+
+        -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;
+    }
+
+    .genres_container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .genre_button {
+        flex-shrink: 0;
+    }
 }

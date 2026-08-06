@@ -1,11 +1,16 @@
+.header {
+    width: 100%;
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
 .nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
 
     width: 100%;
-    max-width: 80rem;
-    margin: 0 auto;
     padding: 2rem 0;
     border-bottom: 1px solid var(--border);
 }
@@ -36,4 +41,18 @@
 .link:hover,
 .link_selected {
     color: var(--primary);
+}
+
+@media (width <= 767px) {
+    .nav {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .links {
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: center;
+        width: 100%;
+    }
 }
