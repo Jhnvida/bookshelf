@@ -2,7 +2,11 @@ import { BookOpen, Heart } from "lucide-react";
 import type { Book } from "../../types";
 import styles from "./styles.module.css";
 
-export default function Bookshelf({ books }: { books: Book[] }) {
+interface BookshelfProps {
+    books: Book[];
+}
+
+export default function Bookshelf({ books }: BookshelfProps) {
     return (
         <div className={styles.bookshelf}>
             {books.map((book) => (

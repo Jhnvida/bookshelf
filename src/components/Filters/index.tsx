@@ -17,11 +17,13 @@ const genres = [
 ];
 
 interface FiltersProps {
+    searchText: string;
     selectedGenre: string;
+    setSearchText: (text: string) => void;
     setSelectedGenre: (genre: string) => void;
 }
 
-export default function Filters({ selectedGenre, setSelectedGenre }: FiltersProps) {
+export default function Filters({ searchText, selectedGenre, setSearchText, setSelectedGenre }: FiltersProps) {
     return (
         <div className={styles.container}>
             <div className={styles.search_container}>
@@ -31,7 +33,9 @@ export default function Filters({ selectedGenre, setSelectedGenre }: FiltersProp
                     className={styles.search_input}
                     name="search"
                     id="search"
-                    placeholder="Pesquisar por título ou autor..."
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    placeholder="Pesquisar por título..."
                 />
             </div>
 
