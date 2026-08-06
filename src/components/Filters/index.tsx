@@ -1,5 +1,4 @@
 import { Search } from "lucide-react";
-import { useState } from "react";
 import styles from "./styles.module.css";
 
 const genres = [
@@ -17,9 +16,12 @@ const genres = [
     "Ficção Científica",
 ];
 
-export default function Filters() {
-    const [selectedGenre, setSelectedGenre] = useState("Todos");
+interface FiltersProps {
+    selectedGenre: string;
+    setSelectedGenre: (genre: string) => void;
+}
 
+export default function Filters({ selectedGenre, setSelectedGenre }: FiltersProps) {
     return (
         <div className={styles.container}>
             <div className={styles.search_container}>
