@@ -1,4 +1,4 @@
-.bookshelf {
+.container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
     gap: 2rem;
@@ -58,6 +58,20 @@
 
 .favoriteButton:hover {
     transform: scale(1.1);
+}
+
+.deleteButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--text-muted);
+
+    transition: color var(--transition);
+}
+
+.deleteButton:hover {
+    color: var(--danger, #ef4444);
 }
 
 .genreContainer {

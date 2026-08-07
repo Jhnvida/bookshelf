@@ -1,20 +1,21 @@
-import { BookOpen, Heart } from "lucide-react";
+import { BookOpen, Heart, Trash } from "lucide-react";
 import type { Book } from "../../types";
 import styles from "./styles.module.css";
 
 interface BookshelfProps {
     books: Book[];
+    onDeleteBook: (id: string) => void;
 }
 
-export default function Bookshelf({ books }: BookshelfProps) {
+export default function Bookshelf({ books, onDeleteBook }: BookshelfProps) {
     return (
-        <div className={styles.bookshelf}>
+        <div className={styles.container}>
             {books.map((book) => (
                 <div key={book.id} className={styles.card}>
                     <div className={styles.imageContainer}>
                         <img src={book.imageUrl} alt={book.title} className={styles.image} />
 
-                        <button className={styles.favoriteButton} aria-label="Favoritar">
+                        <button className={styles.favoriteButton}>
                             <Heart size={16} fill={book.favorite ? "currentColor" : "none"} />
                         </button>
 
@@ -34,6 +35,10 @@ export default function Bookshelf({ books }: BookshelfProps) {
                                     {book.status}
                                 </button>
                             </div>
+
+                            <button className={styles.deleteButton} onClick={() => onDeleteBook(book.id)}>
+                                <Trash size={14} />
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -14,5 +14,12 @@ export function useBooks() {
         }
     }, []);
 
-    return { books, setBooks };
+    function deleteBook(id: string) {
+        const updatedBooks = books.filter((book) => book.id !== id);
+
+        setBooks(updatedBooks);
+        localStorage.setItem("books", JSON.stringify(updatedBooks));
+    }
+
+    return { books, setBooks, deleteBook };
 }
