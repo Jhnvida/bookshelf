@@ -3,9 +3,10 @@ import styles from "./styles.module.css";
 
 interface CounterProps {
     count: number;
+    onAddClick?: () => void;
 }
 
-export default function Counter({ count }: CounterProps) {
+export default function Counter({ count, onAddClick }: CounterProps) {
     return (
         <div className={styles.container}>
             <div className={styles.counter}>
@@ -15,7 +16,7 @@ export default function Counter({ count }: CounterProps) {
                 </p>
             </div>
 
-            <button className={styles.add_book_button}>
+            <button className={styles.add_book_button} onClick={onAddClick}>
                 <Plus className={styles.plus_icon} />
                 Adicionar Livro
             </button>

@@ -38,8 +38,7 @@
     transition: color var(--transition);
 }
 
-.link:hover,
-.link_selected {
+.link:hover {
     color: var(--primary);
 }
 
