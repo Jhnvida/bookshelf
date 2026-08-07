@@ -1,20 +1,6 @@
 import { Search } from "lucide-react";
+import { genres_list } from "../../utils/constants";
 import styles from "./styles.module.css";
-
-const genres = [
-    "Todos",
-    "Ficção",
-    "Romance",
-    "Comédia",
-    "Mistério",
-    "Suspense",
-    "Infantil",
-    "Aventura",
-    "Fantasia",
-    "Clássicos",
-    "Quadrinhos",
-    "Ficção Científica",
-];
 
 interface FiltersProps {
     searchText: string;
@@ -24,6 +10,8 @@ interface FiltersProps {
 }
 
 export default function Filters({ searchText, selectedGenre, setSearchText, setSelectedGenre }: FiltersProps) {
+    const genres = ["Todos", ...genres_list];
+
     return (
         <div className={styles.container}>
             <div className={styles.search_container}>
