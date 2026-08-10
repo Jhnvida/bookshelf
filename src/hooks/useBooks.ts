@@ -14,6 +14,13 @@ export function useBooks() {
         }
     }, []);
 
+    function addBook(book: Book) {
+        const updatedBooks = [...books, book];
+
+        setBooks(updatedBooks);
+        localStorage.setItem("books", JSON.stringify(updatedBooks));
+    }
+
     function deleteBook(id: string) {
         const updatedBooks = books.filter((book) => book.id !== id);
 
@@ -21,5 +28,5 @@ export function useBooks() {
         localStorage.setItem("books", JSON.stringify(updatedBooks));
     }
 
-    return { books, setBooks, deleteBook };
+    return { books, addBook, deleteBook };
 }

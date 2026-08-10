@@ -50,6 +50,7 @@ body {
     min-height: 100vh;
 
     font-family: var(--font-family);
+    font-size: 1rem;
     line-height: 1.5;
     color: var(--text-primary);
 
@@ -78,7 +79,8 @@ select {
 }
 
 :focus-visible {
-    outline: none;
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
 }
 
 p,

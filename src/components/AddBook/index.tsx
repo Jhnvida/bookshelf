@@ -1,12 +1,37 @@
-import { BookPlus, ChevronDown } from "lucide-react";
+import { BookPlus, ChevronDown, Image as ImageIcon } from "lucide-react";
+import { useState, type SubmitEvent } from "react";
+import type { Book } from "../../types";
 import { genres_list } from "../../utils/constants";
 import styles from "./styles.module.css";
 
 interface AddBookProps {
-    onCancel?: () => void;
+    onAdd: (book: Book) => void;
+    onCancel: () => void;
 }
 
-export default function AddBook({ onCancel }: AddBookProps) {
+export default function AddBook({ onAdd, onCancel }: AddBookProps) {
+    const [imageUrl, setImageUrl] = useState("");
+
+    function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+
+        if (!data.get("title") || !data.get("author")) return;
+
+        const book: Book = {
+            id: crypto.randomUUID(),
+            title: data.get("title") as string,
+            author: data.get("author") as string,
+            genre: data.get("genre") as string,
+            status: data.get("status") as string,
+            imageUrl: data.get("imageUrl") as string,
+            favorite: false,
+        };
+
+        onAdd(book);
+        onCancel();
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.header}>
@@ -17,17 +42,30 @@ export default function AddBook({ onCancel }: AddBookProps) {
             <div className={styles.content}>
                 <div className={styles.preview_section}>
                     <div className={styles.cover_preview}>
-                        <img src="#" className={styles.preview_image} />
+                        {imageUrl ? (
+                            <img src={imageUrl} alt="Pré-visualização da capa" className={styles.preview_image} />
+                        ) : (
+                            <div className={styles.preview_placeholder}>
+                                <ImageIcon className={styles.preview_icon} />
+                            </div>
+                        )}
                     </div>
                 </div>
 
-                <form className={styles.form}>
+                <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.form_group}>
                         <label htmlFor="title" className={styles.label}>
                             Título do Livro
                         </label>
 
-                        <input type="text" id="title" className={styles.input} placeholder="Ex: O Senhor dos Anéis" />
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            className={styles.input}
+                            placeholder="Ex: O Senhor dos Anéis"
+                            required
+                        />
                     </div>
 
                     <div className={styles.form_group}>
@@ -35,7 +73,14 @@ export default function AddBook({ onCancel }: AddBookProps) {
                             Autor
                         </label>
 
-                        <input type="text" id="author" className={styles.input} placeholder="Ex: J.R.R. Tolkien" />
+                        <input
+                            type="text"
+                            id="author"
+                            name="author"
+                            className={styles.input}
+                            placeholder="Ex: J.R.R. Tolkien"
+                            required
+                        />
                     </div>
 
                     <div className={styles.form_row}>
@@ -45,7 +90,7 @@ export default function AddBook({ onCancel }: AddBookProps) {
                             </label>
 
                             <div className={styles.select_wrapper}>
-                                <select id="genre" className={styles.select}>
+                                <select id="genre" name="genre" className={styles.select} required>
                                     <option value="">Selecione um gênero</option>
                                     {genres_list.map((genre) => (
                                         <option key={genre} value={genre}>
@@ -64,7 +109,7 @@ export default function AddBook({ onCancel }: AddBookProps) {
                             </label>
 
                             <div className={styles.select_wrapper}>
-                                <select id="status" className={styles.select}>
+                                <select id="status" name="status" className={styles.select} required>
                                     <option value="">Selecione o status</option>
                                     <option value="Quero Ler">Quero Ler</option>
                                     <option value="Lendo">Lendo</option>
@@ -84,8 +129,11 @@ export default function AddBook({ onCancel }: AddBookProps) {
                         <input
                             type="url"
                             id="imageUrl"
+                            name="imageUrl"
                             className={styles.input}
                             placeholder="https://exemplo.com/capa.jpg"
+                            value={imageUrl}
+                            onChange={(e) => setImageUrl(e.target.value)}
                         />
                     </div>
 

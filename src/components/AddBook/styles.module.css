@@ -15,7 +15,7 @@
 }
 
 .title {
-    font-size: 1.5rem;
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
     font-weight: 700;
     color: var(--text-primary);
     letter-spacing: -0.025em;
@@ -109,7 +109,8 @@
 .input,
 .select {
     width: 100%;
-    padding: 0.5rem 1rem;
+    min-height: 44px;
+    padding: 0.75rem 1rem;
     border: 1px solid var(--border);
     border-radius: var(--radius-pill);
 
@@ -166,6 +167,7 @@
 }
 
 .cancel_button {
+    min-height: 44px;
     padding: 0.5rem 1.5rem;
     border-radius: var(--radius-pill);
 
@@ -185,7 +187,9 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    justify-content: center;
 
+    min-height: 44px;
     padding: 0.5rem 1.5rem;
     border: 1px solid var(--primary);
     border-radius: var(--radius-pill);
@@ -217,7 +221,7 @@
 
     .preview_section {
         position: static;
-        max-width: 200px;
+        max-width: clamp(120px, 40vw, 200px);
         margin: 0 auto;
     }
 }

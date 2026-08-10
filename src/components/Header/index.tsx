@@ -1,16 +1,10 @@
 import styles from "./styles.module.css";
 
-interface HeaderProps {
-    onHomeClick?: () => void;
-}
-
-export default function Header({ onHomeClick }: HeaderProps) {
+export default function Header() {
     return (
         <header className={styles.header}>
             <nav className={styles.nav}>
-                <h1 className={styles.logo} onClick={onHomeClick} style={{ cursor: "pointer" }}>
-                    Bookshelf.
-                </h1>
+                <h1 className={styles.logo}>Bookshelf.</h1>
 
                 <div className={styles.links}>
                     <a

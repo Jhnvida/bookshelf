@@ -1,28 +1,28 @@
 import { useState } from "react";
 import styles from "./App.module.css";
 import AddBook from "./components/AddBook";
+import BooksFilter from "./components/BooksFilter";
 import Bookshelf from "./components/Bookshelf";
 import Counter from "./components/Counter";
-import Filters from "./components/Filters";
 import Header from "./components/Header";
 import { useBooks } from "./hooks/useBooks";
 import { useBooksFilter } from "./hooks/useBooksFilter";
 
 export default function App() {
-    const { books, deleteBook } = useBooks();
+    const { books, addBook, deleteBook } = useBooks();
     const { selectedGenre, setSelectedGenre, filteredBooks, searchText, setSearchText } = useBooksFilter(books);
     const [visibleForm, setVisibleForm] = useState(false);
 
     return (
         <>
-            <Header onHomeClick={() => setVisibleForm(false)} />
+            <Header />
 
             <main className={styles.main}>
                 {visibleForm ? (
-                    <AddBook onCancel={() => setVisibleForm(false)} />
+                    <AddBook onAdd={addBook} onCancel={() => setVisibleForm(false)} />
                 ) : (
                     <>
-                        <Filters
+                        <BooksFilter
                             selectedGenre={selectedGenre}
                             setSelectedGenre={setSelectedGenre}
                             searchText={searchText}

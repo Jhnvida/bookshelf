@@ -2,7 +2,7 @@
     width: 100%;
     max-width: 80rem;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 clamp(1rem, 5vw, 1.5rem);
 }
 
 .nav {
@@ -11,12 +11,12 @@
     justify-content: space-between;
 
     width: 100%;
-    padding: 2rem 0;
+    padding: clamp(1rem, 5vw, 2rem) 0;
     border-bottom: 1px solid var(--border);
 }
 
 .logo {
-    font-size: 1.5rem;
+    font-size: clamp(1.25rem, 5vw, 1.5rem);
     font-weight: 700;
     line-height: 2rem;
     letter-spacing: -0.05em;
@@ -43,15 +43,7 @@
 }
 
 @media (width <= 767px) {
-    .nav {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
     .links {
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        justify-content: center;
-        width: 100%;
+        gap: 1rem;
     }
 }

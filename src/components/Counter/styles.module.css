@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2rem 0;
+    padding: clamp(1rem, 5vw, 2rem) 0;
 }
 
 .counter {
@@ -55,7 +55,7 @@
 @media (width <= 767px) {
     .container {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1rem;
         align-items: flex-start;
     }
 
