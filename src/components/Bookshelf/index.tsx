@@ -1,4 +1,4 @@
-import { BookOpen, Heart, Trash } from "lucide-react";
+import { BookOpen, Image as ImageIcon, Trash } from "lucide-react";
 import type { Book } from "../../types";
 import styles from "./styles.module.css";
 
@@ -13,11 +13,13 @@ export default function Bookshelf({ books, onDeleteBook }: BookshelfProps) {
             {books.map((book) => (
                 <div key={book.id} className={styles.card}>
                     <div className={styles.imageContainer}>
-                        <img src={book.imageUrl} alt={book.title} className={styles.image} />
-
-                        <button className={styles.favoriteButton}>
-                            <Heart size={16} fill={book.favorite ? "currentColor" : "none"} />
-                        </button>
+                        {book.imageUrl ? (
+                            <img src={book.imageUrl} alt={book.title} className={styles.image} />
+                        ) : (
+                            <div className={styles.imagePlaceholder}>
+                                <ImageIcon className={styles.placeholderIcon} />
+                            </div>
+                        )}
 
                         <div className={styles.genreContainer}>
                             <span className={styles.genre}>{book.genre}</span>

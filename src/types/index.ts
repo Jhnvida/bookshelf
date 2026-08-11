@@ -5,5 +5,4 @@ export interface Book {
     author: string;
     status: string;
     imageUrl: string;
-    favorite: boolean;
 }
