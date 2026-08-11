@@ -1,6 +1,8 @@
 .main {
-    width: 100%;
-    max-width: 80rem;
-    margin: 0 auto;
-    padding: clamp(1.5rem, 5vw, 2rem) clamp(1rem, 5vw, 1.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+
+    padding-top: clamp(1.5rem, 5vw, 2rem);
+    padding-bottom: clamp(1.5rem, 5vw, 2rem);
 }

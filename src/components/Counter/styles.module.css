@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: clamp(1rem, 5vw, 2rem) 0;
 }
 
 .counter {

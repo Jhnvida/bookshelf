@@ -1,8 +1,12 @@
 .header {
+    position: sticky;
+    z-index: 50;
+    top: 0;
+
     width: 100%;
-    max-width: 80rem;
     margin: 0 auto;
-    padding: 0 clamp(1rem, 5vw, 1.5rem);
+
+    background-color: var(--background);
 }
 
 .nav {
@@ -10,8 +14,8 @@
     align-items: center;
     justify-content: space-between;
 
-    width: 100%;
-    padding: clamp(1rem, 5vw, 2rem) 0;
+    padding-top: clamp(1rem, 5vw, 1.5rem);
+    padding-bottom: clamp(1rem, 5vw, 1.5rem);
     border-bottom: 1px solid var(--border);
 }
 
