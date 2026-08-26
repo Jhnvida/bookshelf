@@ -1,12 +1,15 @@
 import { Plus } from "lucide-react";
+import { useBooksContext } from "../../contexts/BooksContext";
 import styles from "./styles.module.css";
 
 interface CounterProps {
-    count: number;
     onAddClick?: () => void;
 }
 
-export default function Counter({ count, onAddClick }: CounterProps) {
+export default function Counter({ onAddClick }: CounterProps) {
+    const { filteredBooks } = useBooksContext();
+    const count = filteredBooks.length;
+
     return (
         <div className={styles.container}>
             <div className={styles.counter}>

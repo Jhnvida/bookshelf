@@ -6,36 +6,28 @@ import Bookshelf from "./components/Bookshelf";
 import Container from "./components/Container";
 import Counter from "./components/Counter";
 import Header from "./components/Header";
-import { useBooks } from "./hooks/useBooks";
-import { useBooksFilter } from "./hooks/useBooksFilter";
+import { BooksProvider } from "./contexts/BooksContext";
 
 export default function App() {
-    const { books, addBook, deleteBook } = useBooks();
-    const { selectedGenre, setSelectedGenre, filteredBooks, searchText, setSearchText } = useBooksFilter(books);
     const [visibleForm, setVisibleForm] = useState(false);
 
     return (
-        <>
+        <BooksProvider>
             <Header />
 
             <main>
                 <Container className={styles.main}>
                     {visibleForm ? (
-                        <AddBook onAdd={addBook} onCancel={() => setVisibleForm(false)} />
+                        <AddBook onCancel={() => setVisibleForm(false)} />
                     ) : (
                         <>
-                            <BooksFilter
-                                selectedGenre={selectedGenre}
-                                setSelectedGenre={setSelectedGenre}
-                                searchText={searchText}
-                                setSearchText={setSearchText}
-                            />
-                            <Counter count={filteredBooks.length} onAddClick={() => setVisibleForm(true)} />
-                            <Bookshelf books={filteredBooks} onDeleteBook={deleteBook} />
+                            <BooksFilter />
+                            <Counter onAddClick={() => setVisibleForm(true)} />
+                            <Bookshelf />
                         </>
                     )}
                 </Container>
             </main>
-        </>
+        </BooksProvider>
     );
 }

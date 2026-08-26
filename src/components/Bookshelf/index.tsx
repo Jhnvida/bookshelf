@@ -1,13 +1,10 @@
 import { BookOpen, Image as ImageIcon, Trash } from "lucide-react";
-import type { Book } from "../../types";
+import { useBooksContext } from "../../contexts/BooksContext";
 import styles from "./styles.module.css";
 
-interface BookshelfProps {
-    books: Book[];
-    onDeleteBook: (id: string) => void;
-}
+export default function Bookshelf() {
+    const { filteredBooks: books, deleteBook: onDeleteBook } = useBooksContext();
 
-export default function Bookshelf({ books, onDeleteBook }: BookshelfProps) {
     return (
         <div className={styles.container}>
             {books.map((book) => (

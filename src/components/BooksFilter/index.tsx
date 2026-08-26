@@ -1,15 +1,10 @@
 import { Search } from "lucide-react";
+import { useBooksContext } from "../../contexts/BooksContext";
 import { genres_list } from "../../utils/constants";
 import styles from "./styles.module.css";
 
-interface FiltersProps {
-    searchText: string;
-    selectedGenre: string;
-    setSearchText: (text: string) => void;
-    setSelectedGenre: (genre: string) => void;
-}
-
-export default function Filters({ searchText, selectedGenre, setSearchText, setSelectedGenre }: FiltersProps) {
+export default function Filters() {
+    const { searchText, selectedGenre, setSearchText, setSelectedGenre } = useBooksContext();
     const genres = ["Todos", ...genres_list];
 
     return (
