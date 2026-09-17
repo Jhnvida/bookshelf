@@ -1,5 +1,5 @@
 import { BookPlus, ChevronDown } from "lucide-react";
-import { type SubmitEvent } from "react";
+import { useEffect, useRef, type SubmitEvent } from "react";
 import { useBooksContext } from "../../contexts/BooksContext";
 import { genres_list } from "../../utils/constants";
 import styles from "./styles.module.css";
@@ -10,6 +10,11 @@ interface AddBookProps {
 
 export default function AddBook({ onCancel }: AddBookProps) {
     const { addBook: onAdd } = useBooksContext();
+    const titleInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        titleInputRef.current?.focus();
+    }, []);
 
     function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -45,6 +50,7 @@ export default function AddBook({ onCancel }: AddBookProps) {
                             type="text"
                             id="title"
                             name="title"
+                            ref={titleInputRef}
                             className={styles.input}
                             placeholder="Ex: O Senhor dos Anéis"
                             required
