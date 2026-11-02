@@ -1,91 +1,193 @@
-# Bookshelf (Estante de Livros)
+# Bookshelf — Estante de Livros
 
-Uma aplicação web desenvolvida em React para organizar e gerenciar a sua coleção pessoal de livros. Este projeto foi desenvolvido com o **objetivo principal de estudar e aplicar na prática os principais React Hooks**: `useState`, `useEffect`, `useContext`, `useRef` e `useReducer`.
-
-A aplicação permite visualizar os livros cadastrados, filtrar por gênero literário, pesquisar por título, adicionar novos livros e acompanhar o status de leitura de cada obra.
-
-## Aprendizado e Aplicação dos Hooks
-
-Este projeto serve como um laboratório para entender o funcionamento e os casos de uso ideais para os Hooks nativos do React. Abaixo está a explicação de como cada um foi implementado:
-
-### 1. `useState`
-
-**O que é:** Hook utilizado para criar e gerenciar estados locais que, ao serem atualizados, causam a re-renderização do componente.
-**Onde foi utilizado:**
-
-- No `App.tsx` para controlar a exibição do formulário de adicionar livros (`visibleForm`).
-- No custom hook `useBooksFilter.ts` para armazenar o texto da pesquisa (`searchText`) e o gênero selecionado no filtro (`selectedGenre`).
-
-### 2. `useEffect`
-
-**O que é:** Hook utilizado para lidar com efeitos colaterais em componentes funcionais (como chamadas de API, manipulação direta do DOM, subscrições, ou leitura do `localStorage`).
-**Onde foi utilizado:**
-
-- No custom hook `useBooks.ts` para carregar a lista de livros salva no `localStorage` do navegador apenas uma vez (quando o componente é montado).
-- No componente `AddBook/index.tsx` juntamente com o `useRef`, para focar automaticamente no campo de "Título do Livro" assim que o formulário é renderizado na tela.
-
-### 3. `useContext`
-
-**O que é:** Hook utilizado para compartilhar estados e funções globalmente entre componentes sem a necessidade de passar "props" manualmente por cada nível da árvore de componentes (prop drilling).
-**Onde foi utilizado:**
-
-- No `BooksContext.tsx` e acessado nos componentes através do hook customizado `useBooksContext()`. Ele provê para toda a aplicação a lista de livros, as funções de adicionar e remover livros, os filtros ativos e as funções de modificação desses filtros.
-
-### 4. `useReducer`
-
-**O que é:** Hook alternativo ao `useState`, ideal para gerenciar estados mais complexos que envolvem múltiplas sub-operações ou dependem do estado anterior de maneira estruturada (padrão Action/Reducer).
-**Onde foi utilizado:**
-
-- No custom hook `useBooks.ts`, o `useReducer` foi implementado para gerenciar a lista de livros. Ele processa ações distintas: `SET_BOOKS` (inicia a lista a partir do localStorage), `ADD_BOOK` (adiciona um livro ao array) e `DELETE_BOOK` (remove um livro do array). Essa abordagem centraliza a lógica de alteração do estado dos livros de forma previsível e isolada.
-
-### 5. `useRef`
-
-**O que é:** Hook que permite criar uma referência mutável que persiste durante todo o ciclo de vida do componente, sem causar re-renderizações ao ser alterada. Também é frequentemente usado para acessar elementos DOM diretamente.
-**Onde foi utilizado:**
-
-- No componente `AddBook/index.tsx` (`titleInputRef`), para capturar a referência do elemento `<input>` de Título e, utilizando o `useEffect`, forçar o foco automático no campo (`focus()`) no exato instante em que a tela de adição é aberta, melhorando a experiência do usuário (UX).
+Aplicação web desenvolvida em React para organização e gestão de coleções pessoais de livros, concebida como laboratório prático para o estudo e a aplicação aprofundada dos principais **React Hooks** nativos.
 
 ---
 
-## Funcionalidades
+[![React 19](https://img.shields.io/badge/React-19.2-61DAFB?style=flat&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-8.2-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![CSS Modules](https://img.shields.io/badge/CSS-Modules-000000?style=flat&logo=cssmodules&logoColor=white)](https://github.com/css-modules/css-modules)
+[![Oxlint](https://img.shields.io/badge/Linter-Oxlint-orange?style=flat&logo=oxc&logoColor=white)](https://oxc.rs/)
+[![Stylelint](https://img.shields.io/badge/Linter-Stylelint-263238?style=flat&logo=stylelint&logoColor=white)](https://stylelint.io/)
+[![Licença Privada](https://img.shields.io/badge/License-Privado-lightgrey?style=flat)](#licença)
 
-- **Catálogo de Livros**: Exibição dos livros em formato de cartões com imagem de capa, título, autor, gênero e status de leitura.
-- **Filtro e Pesquisa**: Busca dinâmica por título e filtragem por categorias/gêneros literários.
-- **Adicionar Livro**: Formulário para cadastro de novos livros com campos detalhados.
-- **Gerenciamento de Leitura**: Classificação do status de leitura do livro (_Quero Ler_, _Lendo_, _Lido_).
-- **Remoção de Livros**: Exclusão de livros da estante.
-- **Persistência Local**: Salvamento automático dos dados no `localStorage` do navegador.
+---
+
+## Sumário
+
+- [Visão Geral](#visão-geral)
+- [Aprendizado e Aplicação dos Hooks](#aprendizado-e-aplicação-dos-hooks)
+- [Funcionalidades Principais](#funcionalidades-principais)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Pré-requisitos](#pré-requisitos)
+- [Instalação e Execução](#instalação-e-execução)
+- [Scripts Disponíveis](#scripts-disponíveis)
+- [Padrões de Versionamento](#padrões-de-versionamento)
+- [Licença](#licença)
+
+---
+
+## Visão Geral
+
+O **Bookshelf** é uma aplicação focada na experiência do usuário para catalogar e acompanhar o progresso de leituras. O projeto foi estruturado com o objetivo primordial de explorar a fundo o ciclo de vida, a reatividade e os padrões de gerenciamento de estado do React, servindo como referência prática de arquitetura limpa de componentes funcionais.
+
+A aplicação opera inteiramente no navegador do usuário com persistência automática no `localStorage`, permitindo filtrar o acervo por gênero literário, realizar buscas instantâneas por título e classificar as obras por estágios de leitura.
+
+---
+
+## Aprendizado e Aplicação dos Hooks
+
+Este repositório serve como laboratório prático para os Hooks nativos do React. Abaixo estão os conceitos e a implementação de cada um no código-fonte:
+
+### 1. `useState`
+- **Conceito:** Gerenciamento de estados locais previsíveis que disparam re-renderização quando atualizados.
+- **Implementação:**
+  - `src/App.tsx`: controla a alternância e a visibilidade do formulário de cadastro (`visibleForm`).
+  - `src/hooks/useBooksFilter.ts`: armazena o termo digitado na barra de busca (`searchText`) e a categoria selecionada no seletor de gêneros (`selectedGenre`).
+
+### 2. `useEffect`
+- **Conceito:** Execução de efeitos colaterais e sincronização com APIs externas e o DOM fora do fluxo de renderização puro.
+- **Implementação:**
+  - `src/hooks/useBooks.ts`: sincroniza a leitura inicial e a persistência contínua do acervo no `localStorage` do navegador.
+  - `src/components/AddBook/index.tsx`: acionado na montagem do modal de cadastro em conjunto com o `useRef` para disparar foco imediato no primeiro campo de entrada.
+
+### 3. `useContext`
+- **Conceito:** Compartilhamento seguro de estados e despachos de ações através da árvore de componentes, eliminando *prop drilling*.
+- **Implementação:**
+  - `src/contexts/BooksContext.tsx`: centraliza e distribui a lista de livros, as ações de mutação (inclusão/exclusão) e o estado global de filtragem para toda a aplicação por meio do hook customizado `useBooksContext()`.
+
+### 4. `useReducer`
+- **Conceito:** Alternativa robusta ao `useState` para controle de fluxos de estado complexos baseados em ações tipadas (padrão *Action/Reducer*).
+- **Implementação:**
+  - `src/hooks/useBooks.ts`: orquestra as mutações do acervo literário através das ações `SET_BOOKS` (carga inicial), `ADD_BOOK` (inserção atômica) e `DELETE_BOOK` (remoção referencial), assegurando imutabilidade e previsibilidade.
+
+### 5. `useRef`
+- **Conceito:** Criação de referências mutáveis persistentes entre renderizações sem disparar re-renderizações indesejadas, além de acesso direto a nós do DOM.
+- **Implementação:**
+  - `src/components/AddBook/index.tsx`: captura o nó DOM do elemento `<input>` (`titleInputRef`), aplicando a instrução `focus()` ao abrir o modal para proporcionar uma experiência fluida de digitação.
+
+---
+
+## Funcionalidades Principais
+
+- **Catálogo Interativo:** Apresentação visual dos livros em cartões contendo imagem de capa, título, autor, gênero e selo de status de leitura.
+- **Busca e Filtragem em Tempo Real:** Filtragem dinâmica simultânea por gênero literário e busca textual aproximada por título da obra.
+- **Cadastro Completo:** Formulário validado para inclusão de novos títulos com seleção de gênero e estado inicial de leitura.
+- **Classificação de Leitura:** Rastreamento do ciclo de leitura com os estados: *Quero Ler*, *Lendo* e *Lido*.
+- **Remoção de Obras:** Exclusão rápida e segura de títulos da estante com atualização imediata da interface.
+- **Persistência no Navegador:** Sincronização automática dos dados com o `localStorage`, mantendo o catálogo salvo entre sessões.
+
+---
 
 ## Tecnologias Utilizadas
 
-- **Frontend:**
-    - [React 19](https://react.dev/)
-    - [TypeScript](https://www.typescriptlang.org/)
-    - [Vite](https://vitejs.dev/)
-    - [CSS Modules](https://github.com/css-modules/css-modules) para estilização
-    - [Lucide React](https://lucide.dev/) para ícones
-- **Qualidade de Código:**
-    - [Oxlint](https://oxc.rs/)
-    - [Stylelint](https://stylelint.io/)
+### Frontend
+- **[React 19](https://react.dev/):** Biblioteca para interfaces de usuário, com compilação otimizada via React Compiler.
+- **[TypeScript](https://www.typescriptlang.org/):** Tipagem estática rigorosa para componentes, modelos de dados e reducers.
+- **[Vite](https://vitejs.dev/):** Ambiente de desenvolvimento e empacotador de produção de alta velocidade.
+- **[CSS Modules](https://github.com/css-modules/css-modules):** Estilização modular com escopo encapsulado por componente.
+- **[Lucide React](https://lucide.dev/):** Pacote de ícones vetoriais leves e consistentes.
 
-## Como Executar
+### Qualidade de Código & Análise Estática
+- **[Oxlint](https://oxc.rs/):** Linter JavaScript/TypeScript de alta performance baseado em Rust.
+- **[Stylelint](https://stylelint.io/):** Padronização e validação de regras de folhas de estilo CSS (`stylelint-config-standard`, `stylelint-config-clean-order`).
 
-1. Clone o repositório e acesse a pasta do projeto:
+---
 
-    ```bash
-    git clone https://github.com/Jhnvida/bookshelf.git
-    cd bookshelf
-    ```
+## Estrutura do Projeto
 
-2. Instale as dependências:
+```text
+bookshelf/
+├── public/                 # Recursos públicos estáticos
+├── src/
+│   ├── assets/             # Imagens e vetores estáticos
+│   ├── components/         # Componentes React da interface
+│   │   ├── AddBook/        # Formulário e modal de novo livro
+│   │   ├── BookCard/       # Cartão de exibição individual da obra
+│   │   ├── BookList/       # Grid responsivo de listagem dos livros
+│   │   ├── Container/      # Componente de estrutura e layout central
+│   │   ├── Filter/         # Controles de filtro por categoria e busca
+│   │   └── Header/         # Cabeçalho da aplicação
+│   ├── contexts/           # Provedores de contexto React (BooksContext)
+│   ├── hooks/              # Hooks customizados (useBooks, useBooksFilter)
+│   ├── styles/             # Variáveis globais de cores, tipografia e reset
+│   ├── types/              # Definições de tipos e interfaces TypeScript
+│   ├── utils/              # Funções utilitárias e constantes auxiliares
+│   ├── App.tsx             # Componente raiz da aplicação
+│   ├── App.module.css      # Estilização do componente raiz
+│   └── main.tsx            # Ponto de entrada da aplicação
+├── .oxlintrc.json          # Configuração do Oxlint
+├── .stylelintrc.json       # Configuração do Stylelint
+├── package.json            # Manifesto de dependências e scripts npm
+├── tsconfig.json           # Configurações do compilador TypeScript
+└── vite.config.ts          # Configurações do Vite
+```
 
-    ```bash
-    npm install
-    ```
+---
 
-3. Inicie o servidor de desenvolvimento:
-    ```bash
-    npm run dev
-    ```
+## Pré-requisitos
 
-Acesse a aplicação no seu navegador (geralmente em `http://localhost:5173`).
+Antes de iniciar a configuração local, certifique-se de ter instalado em seu ambiente:
+
+- [Node.js](https://nodejs.org/) (versão 18.0.0 ou superior recomendada)
+- [npm](https://www.npmjs.com/) (gerenciador de pacotes padrão que acompanha o Node.js)
+
+---
+
+## Instalação e Execução
+
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/Jhnvida/bookshelf.git
+   cd bookshelf
+   ```
+
+2. **Instale as dependências:**
+   ```bash
+   npm install
+   ```
+
+3. **Inicie o servidor de desenvolvimento:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Acesse no navegador:**
+   Abra [http://localhost:5173](http://localhost:5173) no seu navegador padrão.
+
+---
+
+## Scripts Disponíveis
+
+| Comando | Descrição |
+|---|---|
+| `npm run dev` | Inicia o servidor de desenvolvimento do Vite com Hot Module Replacement (HMR). |
+| `npm run build` | Valida as tipagens via `tsc -b` e compila o código para produção na pasta `dist/`. |
+| `npm run preview` | Executa um servidor HTTP local para inspecionar o pacote compilado de produção. |
+| `npm run lint` | Executa a análise estática do código TypeScript/React utilizando o Oxlint. |
+| `npm run lint:css` | Verifica a conformidade das regras de estilo nos arquivos `.css` via Stylelint. |
+| `npm run lint:css:fix` | Corrige automaticamente as inconsistências de estilo detectadas pelo Stylelint. |
+
+---
+
+## Padrões de Versionamento
+
+Este repositório adota a convenção de [Conventional Commits](https://www.conventionalcommits.org/pt-br/) para o histórico de alterações:
+
+- `feat:` Novas funcionalidades.
+- `fix:` Correções de bugs.
+- `docs:` Alterações e melhorias na documentação.
+- `style:` Formatação de código sem impacto no comportamento funcional.
+- `refactor:` Refatorações de código sem adição de novos recursos.
+- `perf:` Otimizações de desempenho.
+- `test:` Inclusão ou ajuste de testes.
+- `build:` Modificações no ecossistema de compilação ou dependências.
+- `chore:` Tarefas rotineiras de manutenção e infraestrutura.
+
+---
+
+## Licença
+
+Este projeto é de caráter pessoal e para fins de estudo. Não possui uma licença pública de código aberto concedida para reprodução comercial. Todos os direitos sobre a implementação são reservados ao autor.
