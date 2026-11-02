@@ -42,31 +42,36 @@ A aplicação opera inteiramente no navegador do usuário com persistência auto
 Este repositório serve como laboratório prático para os Hooks nativos do React. Abaixo estão os conceitos e a implementação de cada um no código-fonte:
 
 ### 1. `useState`
+
 - **Conceito:** Gerenciamento de estados locais previsíveis que disparam re-renderização quando atualizados.
 - **Implementação:**
-  - `src/App.tsx`: controla a alternância e a visibilidade do formulário de cadastro (`visibleForm`).
-  - `src/hooks/useBooksFilter.ts`: armazena o termo digitado na barra de busca (`searchText`) e a categoria selecionada no seletor de gêneros (`selectedGenre`).
+    - `src/App.tsx`: controla a alternância e a visibilidade do formulário de cadastro (`visibleForm`).
+    - `src/hooks/useBooksFilter.ts`: armazena o termo digitado na barra de busca (`searchText`) e a categoria selecionada no seletor de gêneros (`selectedGenre`).
 
 ### 2. `useEffect`
+
 - **Conceito:** Execução de efeitos colaterais e sincronização com APIs externas e o DOM fora do fluxo de renderização puro.
 - **Implementação:**
-  - `src/hooks/useBooks.ts`: sincroniza a leitura inicial e a persistência contínua do acervo no `localStorage` do navegador.
-  - `src/components/AddBook/index.tsx`: acionado na montagem do modal de cadastro em conjunto com o `useRef` para disparar foco imediato no primeiro campo de entrada.
+    - `src/hooks/useBooks.ts`: sincroniza a leitura inicial e a persistência contínua do acervo no `localStorage` do navegador.
+    - `src/components/AddBook/index.tsx`: acionado na montagem do modal de cadastro em conjunto com o `useRef` para disparar foco imediato no primeiro campo de entrada.
 
 ### 3. `useContext`
-- **Conceito:** Compartilhamento seguro de estados e despachos de ações através da árvore de componentes, eliminando *prop drilling*.
+
+- **Conceito:** Compartilhamento seguro de estados e despachos de ações através da árvore de componentes, eliminando _prop drilling_.
 - **Implementação:**
-  - `src/contexts/BooksContext.tsx`: centraliza e distribui a lista de livros, as ações de mutação (inclusão/exclusão) e o estado global de filtragem para toda a aplicação por meio do hook customizado `useBooksContext()`.
+    - `src/contexts/BooksContext.tsx`: centraliza e distribui a lista de livros, as ações de mutação (inclusão/exclusão) e o estado global de filtragem para toda a aplicação por meio do hook customizado `useBooksContext()`.
 
 ### 4. `useReducer`
-- **Conceito:** Alternativa robusta ao `useState` para controle de fluxos de estado complexos baseados em ações tipadas (padrão *Action/Reducer*).
+
+- **Conceito:** Alternativa robusta ao `useState` para controle de fluxos de estado complexos baseados em ações tipadas (padrão _Action/Reducer_).
 - **Implementação:**
-  - `src/hooks/useBooks.ts`: orquestra as mutações do acervo literário através das ações `SET_BOOKS` (carga inicial), `ADD_BOOK` (inserção atômica) e `DELETE_BOOK` (remoção referencial), assegurando imutabilidade e previsibilidade.
+    - `src/hooks/useBooks.ts`: orquestra as mutações do acervo literário através das ações `SET_BOOKS` (carga inicial), `ADD_BOOK` (inserção atômica) e `DELETE_BOOK` (remoção referencial), assegurando imutabilidade e previsibilidade.
 
 ### 5. `useRef`
+
 - **Conceito:** Criação de referências mutáveis persistentes entre renderizações sem disparar re-renderizações indesejadas, além de acesso direto a nós do DOM.
 - **Implementação:**
-  - `src/components/AddBook/index.tsx`: captura o nó DOM do elemento `<input>` (`titleInputRef`), aplicando a instrução `focus()` ao abrir o modal para proporcionar uma experiência fluida de digitação.
+    - `src/components/AddBook/index.tsx`: captura o nó DOM do elemento `<input>` (`titleInputRef`), aplicando a instrução `focus()` ao abrir o modal para proporcionar uma experiência fluida de digitação.
 
 ---
 
@@ -75,7 +80,7 @@ Este repositório serve como laboratório prático para os Hooks nativos do Reac
 - **Catálogo Interativo:** Apresentação visual dos livros em cartões contendo imagem de capa, título, autor, gênero e selo de status de leitura.
 - **Busca e Filtragem em Tempo Real:** Filtragem dinâmica simultânea por gênero literário e busca textual aproximada por título da obra.
 - **Cadastro Completo:** Formulário validado para inclusão de novos títulos com seleção de gênero e estado inicial de leitura.
-- **Classificação de Leitura:** Rastreamento do ciclo de leitura com os estados: *Quero Ler*, *Lendo* e *Lido*.
+- **Classificação de Leitura:** Rastreamento do ciclo de leitura com os estados: _Quero Ler_, _Lendo_ e _Lido_.
 - **Remoção de Obras:** Exclusão rápida e segura de títulos da estante com atualização imediata da interface.
 - **Persistência no Navegador:** Sincronização automática dos dados com o `localStorage`, mantendo o catálogo salvo entre sessões.
 
@@ -84,6 +89,7 @@ Este repositório serve como laboratório prático para os Hooks nativos do Reac
 ## Tecnologias Utilizadas
 
 ### Frontend
+
 - **[React 19](https://react.dev/):** Biblioteca para interfaces de usuário, com compilação otimizada via React Compiler.
 - **[TypeScript](https://www.typescriptlang.org/):** Tipagem estática rigorosa para componentes, modelos de dados e reducers.
 - **[Vite](https://vitejs.dev/):** Ambiente de desenvolvimento e empacotador de produção de alta velocidade.
@@ -91,6 +97,7 @@ Este repositório serve como laboratório prático para os Hooks nativos do Reac
 - **[Lucide React](https://lucide.dev/):** Pacote de ícones vetoriais leves e consistentes.
 
 ### Qualidade de Código & Análise Estática
+
 - **[Oxlint](https://oxc.rs/):** Linter JavaScript/TypeScript de alta performance baseado em Rust.
 - **[Stylelint](https://stylelint.io/):** Padronização e validação de regras de folhas de estilo CSS (`stylelint-config-standard`, `stylelint-config-clean-order`).
 
@@ -105,10 +112,10 @@ bookshelf/
 │   ├── assets/             # Imagens e vetores estáticos
 │   ├── components/         # Componentes React da interface
 │   │   ├── AddBook/        # Formulário e modal de novo livro
-│   │   ├── BookCard/       # Cartão de exibição individual da obra
-│   │   ├── BookList/       # Grid responsivo de listagem dos livros
+│   │   ├── BooksFilter/    # Controles de filtro por categoria e busca
+│   │   ├── Bookshelf/      # Grid responsivo e listagem dos cartões de livros
 │   │   ├── Container/      # Componente de estrutura e layout central
-│   │   ├── Filter/         # Controles de filtro por categoria e busca
+│   │   ├── Counter/        # Contador métrico da coleção e botão de ação
 │   │   └── Header/         # Cabeçalho da aplicação
 │   ├── contexts/           # Provedores de contexto React (BooksContext)
 │   ├── hooks/              # Hooks customizados (useBooks, useBooksFilter)
@@ -139,20 +146,23 @@ Antes de iniciar a configuração local, certifique-se de ter instalado em seu a
 ## Instalação e Execução
 
 1. **Clone o repositório:**
-   ```bash
-   git clone https://github.com/Jhnvida/bookshelf.git
-   cd bookshelf
-   ```
+
+    ```bash
+    git clone https://github.com/Jhnvida/bookshelf.git
+    cd bookshelf
+    ```
 
 2. **Instale as dependências:**
-   ```bash
-   npm install
-   ```
+
+    ```bash
+    npm install
+    ```
 
 3. **Inicie o servidor de desenvolvimento:**
-   ```bash
-   npm run dev
-   ```
+
+    ```bash
+    npm run dev
+    ```
 
 4. **Acesse no navegador:**
    Abra [http://localhost:5173](http://localhost:5173) no seu navegador padrão.
@@ -161,14 +171,14 @@ Antes de iniciar a configuração local, certifique-se de ter instalado em seu a
 
 ## Scripts Disponíveis
 
-| Comando | Descrição |
-|---|---|
-| `npm run dev` | Inicia o servidor de desenvolvimento do Vite com Hot Module Replacement (HMR). |
-| `npm run build` | Valida as tipagens via `tsc -b` e compila o código para produção na pasta `dist/`. |
-| `npm run preview` | Executa um servidor HTTP local para inspecionar o pacote compilado de produção. |
-| `npm run lint` | Executa a análise estática do código TypeScript/React utilizando o Oxlint. |
-| `npm run lint:css` | Verifica a conformidade das regras de estilo nos arquivos `.css` via Stylelint. |
-| `npm run lint:css:fix` | Corrige automaticamente as inconsistências de estilo detectadas pelo Stylelint. |
+| Comando                | Descrição                                                                          |
+| ---------------------- | ---------------------------------------------------------------------------------- |
+| `npm run dev`          | Inicia o servidor de desenvolvimento do Vite com Hot Module Replacement (HMR).     |
+| `npm run build`        | Valida as tipagens via `tsc -b` e compila o código para produção na pasta `dist/`. |
+| `npm run preview`      | Executa um servidor HTTP local para inspecionar o pacote compilado de produção.    |
+| `npm run lint`         | Executa a análise estática do código TypeScript/React utilizando o Oxlint.         |
+| `npm run lint:css`     | Verifica a conformidade das regras de estilo nos arquivos `.css` via Stylelint.    |
+| `npm run lint:css:fix` | Corrige automaticamente as inconsistências de estilo detectadas pelo Stylelint.    |
 
 ---
 
